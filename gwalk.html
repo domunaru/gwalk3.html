@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Xiang Seafood - Restoran seafood premium dengan bahan segar berkualitas tinggi dan pengalaman bersantap mewah">
+    <title>Xiang Seafood | Premium Seafood Dining Experience</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP for Professional Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <style>
+        :root {
+            --primary-dark: #0a1628;
+            --primary-mid: #1e3a5f;
+            --accent-gold: #d4af37;
+            --accent-coral: #e85d4e;
+            --text-light: #f8f9fa;
+            --text-muted: #a0aec0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .preloader-line {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preloader-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--text-light), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Cursor */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.hover {
+            transform: scale(2);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 5%;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+            letter-spacing: 0.2em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo i {
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-light);
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%);
+            z-index: -2;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(10, 22, 40, 0.8) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.5em;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-title span {
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .btn-primary {
+            padding: 1rem 3rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-secondary {
+            padding: 1rem 3rem;
+            background: transparent;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent-gold), transparent);
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            50.1% { transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--primary-dark);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.5s;
+        }
+
+        .about-image-wrapper:hover .about-image {
+            filter: grayscale(0%);
+        }
+
+        .about-frame {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid var(--accent-gold);
+            z-index: -1;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: var(--accent-coral);
+            padding: 2rem;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .about-badge .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-light);
+            display: block;
+            line-height: 1;
+        }
+
+        .about-badge .text {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .about-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .signature {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .signature-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+
+        .signature-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-top: 6rem;
+        }
+
+        .feature-item {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-right: 1px solid var(--border-subtle);
+            transition: all 0.3s;
+        }
+
+        .feature-item:last-child {
+            border-right: none;
+        }
+
+        .feature-item:hover {
+            background: var(--glass-bg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background: linear-gradient(to bottom, var(--primary-mid), var(--primary-dark));
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .menu-tab {
+            padding: 1.5rem 3rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .menu-tab.active,
+        .menu-tab:hover {
+            color: var(--accent-gold);
+        }
+
+        .menu-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .menu-item {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateX(10px);
+        }
+
+        .menu-item-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--border-subtle);
+            transition: all 0.3s;
+        }
+
+        .menu-item:hover .menu-item-image {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+
+        .menu-item-content {
+            flex: 1;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dotted var(--border-subtle);
+        }
+
+        .menu-item-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .menu-item-price {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .menu-item-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Chef Section */
+        .chef-section {
+            background: var(--primary-dark);
+            overflow: hidden;
+        }
+
+        .chef-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .chef-content {
+            order: 2;
+        }
+
+        .chef-image-wrapper {
+            order: 1;
+            position: relative;
+        }
+
+        .chef-image {
+            width: 100%;
+            height: 700px;
+            object-fit: cover;
+        }
+
+        .chef-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .chef-name {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .chef-title {
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .chef-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .stat-item h4 {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 0;
+        }
+
+        .gallery-header {
+            padding: 8rem 5% 4rem;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 22, 40, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-category {
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--primary-mid);
+            padding: 8rem 5%;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-slide {
+            text-align: center;
+            display: none;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .testimonial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-gold);
+            padding: 3px;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .author-title {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: var(--accent-gold);
+            letter-spacing: 0.2rem;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-btn {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Reservation Section */
+        .reservation {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-mid) 100%);
+            position: relative;
+        }
+
+        .reservation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.02"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+            opacity: 0.5;
+        }
+
+        .reservation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .reservation-info h3 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .reservation-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-details p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .reservation-form {
+            background: var(--glass-bg);
+            padding: 3rem;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #050d18;
+            padding: 6rem 5% 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: var(--text-light);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-contact p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact i {
+            color: var(--accent-gold);
+            width: 20px;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid,
+            .chef-grid,
+            .reservation-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .chef-content {
+                order: 1;
+            }
+
+            .chef-image-wrapper {
+                order: 2;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border-subtle);
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .menu-tabs {
+                flex-wrap: wrap;
+            }
+
+            .menu-tab {
+                padding: 1rem 1.5rem;
+                font-size: 0.75rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary-dark);
+            z-index: 999;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+        }
+
+        .mobile-menu-links li {
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">XIANG SEAFOOD</div>
+        <div class="preloader-line"></div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul class="mobile-menu-links">
+            <li><a href="#home" onclick="toggleMobileMenu()">Beranda</a></li>
+            <li><a href="#about" onclick="toggleMobileMenu()">Tentang</a></li>
+            <li><a href="#menu" onclick="toggleMobileMenu()">Menu</a></li>
+            <li><a href="#chef" onclick="toggleMobileMenu()">Chef</a></li>
+            <li><a href="#gallery" onclick="toggleMobileMenu()">Galeri</a></li>
+            <li><a href="#reservation" onclick="toggleMobileMenu()">Reservasi</a></li>
+        </ul>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo">
+            <i class="fas fa-anchor"></i>
+            XIANG
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#chef">Chef</a></li>
+            <li><a href="#gallery">Galeri</a></li>
+        </ul>
+        
+        <a href="#reservation" class="nav-cta">Reservasi</a>
+        
+        <div class="mobile-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=1920&h=1080&fit=crop" alt="Luxury Seafood" class="hero-image">
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <p class="hero-subtitle">Est. 2009</p>
+            <h1 class="hero-title">
+                Experience the<br>
+                <span>Ocean's Finest</span>
+            </h1>
+            <p class="hero-description">
+                Nikmati pengalaman bersantap seafood premium dengan bahan segar berkualitas tertinggi, 
+                disajikan dengan teknik kuliner modern dan sentuhan klasik.
+            </p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn-primary">Jelajahi Menu</a>
+                <a href="#reservation" class="btn-secondary">Pesan Meja</a>
+            </div>
+        </div>
+        
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Tentang Kami</span>
+                <h2 class="section-title">Tradisi & Keunggulan</h2>
+                <p class="section-subtitle">
+                    Lebih dari satu dekade menyajikan pengalaman kuliner laut terbaik 
+                    dengan komitmen terhadap kualitas dan kepuasan pelanggan.
+                </p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&h=1000&fit=crop" alt="Restaurant Interior" class="about-image">
+                    <div class="about-frame"></div>
+                    <div class="about-badge">
+                        <span class="number">15</span>
+                        <span class="text">Tahun<br>Excellence</span>
+                    </div>
+                </div>
+                
+                <div class="about-content">
+                    <h3>Where Passion Meets the Plate</h3>
+                    <p>
+                        Xiang Seafood didirikan pada tahun 2009 dengan visi sederhana: 
+                        menghadirkan pengalaman bersantap seafood yang autentik dan mewah. 
+                        Kami bekerja sama dengan nelayan lokal terpercaya untuk memastikan 
+                        setiap bahan yang masuk ke dapur kami adalah yang terbaik dari laut.
+                    </p>
+                    <p>
+                        Setiap hidangan adalah karya seni yang mencerminkan perpaduan sempurna 
+                        antara teknik memasak tradisional dan inovasi modern. Dari lobster segar 
+                        hingga ikan langka, kami menghormati bahan-bahan alami dengan penyajian 
+                        yang memukau.
+                    </p>
+                    
+                    <div class="signature">
+                        <div class="signature-name">Chef Antonio Zhang</div>
+                        <div class="signature-role">Executive Chef & Founder</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h4 class="feature-title">Fresh Daily</h4>
+                    <p class="feature-desc">Bahan segar datang setiap pagi langsung dari pasar ikan terbaik</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h4 class="feature-title">Award Winning</h4>
+                    <p class="feature-desc">Pemenang berbagai penghargaan kuliner nasional dan internasional</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-wine-glass-alt"></i>
+                    </div>
+                    <h4 class="feature-title">Curated Wines</h4>
+                    <p class="feature-desc">Koleksi wine premium yang dipilih sommelier berpengalaman</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Menu</span>
+                <h2 class="section-title">Culinary Masterpieces</h2>
+                <p class="section-subtitle">
+                    Setiap hidangan dirancang dengan cermat untuk menghadirkan harmoni rasa laut yang sempurna
+                </p>
+            </div>
+
+            <div class="menu-tabs">
+                <button class="menu-tab active" onclick="filterMenu('all', this)">Semua</button>
+                <button class="menu-tab" onclick="filterMenu('lobster', this)">Lobster</button>
+                <button class="menu-tab" onclick="filterMenu('crab', this)">Kepiting</button>
+                <button class="menu-tab" onclick="filterMenu('fish', this)">Ikan</button>
+                <button class="menu-tab" onclick="filterMenu('oyster', this)">Tiram</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Chef Section -->
+    <section class="chef-section" id="chef">
+        <div class="container">
+            <div class="chef-grid">
+                <div class="chef-content">
+                    <span class="section-label">Executive Chef</span>
+                    <h2 class="section-title">Antonio Zhang</h2>
+                    
+                    <p class="chef-quote">
+                        "Memasak adalah seni, tetapi memasak seafood adalah passion. 
+                        Setiap hidangan harus menghormati laut dan memberikan pengalaman tak terlupakan."
+                    </p>
+                    
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.8;">
+                        Dengan pengalaman lebih dari 20 tahun di berbagai restoran bintang Michelin 
+                        di Eropa dan Asia, Chef Antonio membawa visi unik yang memadukan teknik 
+                        klasik Prancis dengan sentuhan Asia yang kuat.
+                    </p>
+                    
+                    <div class="chef-name">Antonio Zhang</div>
+                    <div class="chef-title">Executive Chef & Founder</div>
+                    
+                    <div class="chef-stats">
+                        <div class="stat-item">
+                            <h4>20+</h4>
+                            <p>Tahun Pengalaman</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>15</h4>
+                            <p>Penghargaan</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>3</h4>
+                            <p>Restoran</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chef-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&h=1000&fit=crop" alt="Chef Antonio" class="chef-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-header">
+            <span class="section-label">Galeri</span>
+            <h2 class="section-title">Visual Journey</h2>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=600&h=600&fit=crop" alt="Seafood Platter">
+                <div class="gallery-overlay">
+                    <h4 class="gallery-title">Seafood Platter</h4>
+                    <span class="gallery-category">Signature Dish</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?w=600&h=600&fit=crop" alt="Restaurant Interior">
+                <div class="gallery-overlay">
+                    <h4 class="gallery-title">Main Dining</h4>
+                    <span class="gallery-category">Interior</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&h=600&fit=crop" alt="Grilled Salmon">
+                <div class="gallery-overlay">
+                    <h4 class="gallery-title">Grilled Salmon</h4>
+                    <span class="gallery-category">Main Course</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&h=600&fit=crop" alt="Fine Dining">
+                <div class="gallery-overlay">
+                    <h4 class="gallery-title">Private Dining</h4>
+                    <span class="gallery-category">Experience</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Testimoni</span>
+                <h2 class="section-title">Guest Experiences</h2>
+            </div>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-text">
+                        "Pengalaman bersantap yang luar biasa. Lobster thermidor-nya adalah yang terbaik 
+                        yang pernah saya coba di Jakarta. Pelayanan impeccable dan suasananya sangat elegan."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Guest">
+                        </div>
+                        <h4 class="author-name">Michael Hartono</h4>
+                        <p class="author-title">Pengusaha</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">
+                        "Tempat favorit saya untuk dinner bisnis. Kualitas makanan yang konsisten 
+                        dan wine pairing yang sempurna. Highly recommended untuk pecinta seafood."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Guest">
+                        </div>
+                        <h4 class="author-name">Sarah Wijaya</h4>
+                        <p class="author-title">Food Critic</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">
+                        "Anniversary dinner yang sempurna. Mereka mengurus setiap detail dengan sangat baik. 
+                        Chili crab-nya autentik dan sangat memorable."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop" alt="Guest">
+                        </div>
+                        <h4 class="author-name">David & Lisa</h4>
+                        <p class="author-title">Regular Guests</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="testimonial-btn" onclick="changeSlide(-1)">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="testimonial-btn" onclick="changeSlide(1)">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section class="reservation" id="reservation">
+        <div class="container">
+            <div class="reservation-grid">
+                <div class="reservation-info">
+                    <span class="section-label">Reservasi</span>
+                    <h3>Book Your Table</h3>
+                    <p>
+                        Pastikan pengalaman bersantap Anda sempurna dengan reservasi beforehand. 
+                        Tim kami siap membantu Anda merencanakan dinner spesial, acara bisnis, 
+                        atau perayaan penting lainnya.
+                    </p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Lokasi</h4>
+                                <p>Jl. Sudirman Kav. 28<br>Jakarta Selatan 12920</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Telepon</h4>
+                                <p>(021) 5678-9012<br>+62 812-3456-7890</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Jam Operasional</h4>
+                                <p>Senin - Minggu<br>11:00 - 23:00 WIB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="reservation-form" onsubmit="handleReservation(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="tel" placeholder="+62 xxx-xxxx-xxxx" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Tamu</label>
+                            <select required>
+                                <option value="">Pilih</option>
+                                <option value="2">2 Orang</option>
+                                <option value="4">4 Orang</option>
+                                <option value="6">6 Orang</option>
+                                <option value="8">8 Orang</option>
+                                <option value="10+">10+ Orang</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tanggal</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu</label>
+                            <select required>
+                                <option value="">Pilih Waktu</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="18:00">18:00</option>
+                                <option value="19:00">19:00</option>
+                                <option value="20:00">20:00</option>
+                                <option value="21:00">21:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Permintaan Khusus</label>
+                        <textarea rows="3" placeholder="Alergi, acara spesial, preferensi tempat duduk..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Konfirmasi Reservasi</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">XIANG SEAFOOD</a>
+                    <p>
+                        Destinasi utama para pecinta seafood yang menghargai kualitas, 
+                        kesegaran, dan pengalaman bersantap yang tak terlupakan sejak 2009.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">Tentang Kami</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#chef">Chef</a></li>
+                        <li><a href="#gallery">Galeri</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Private Dining</a></li>
+                        <li><a href="#">Catering</a></li>
+                        <li><a href="#">Event Organizer</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Jl. Sudirman Kav. 28, Jakarta</p>
+                    <p><i class="fas fa-phone"></i> (021) 5678-9012</p>
+                    <p><i class="fas fa-envelope"></i> info@xiangseafood.com</p>
+                    <p><i class="fas fa-clock"></i> 11:00 - 23:00 WIB</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Xiang Seafood. All Rights Reserved.</p>
+                <p>Designed with excellence by <a href="#">Xiang Team</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data
+        const menuData = [
+            {
+                id: 1,
+                name: "Lobster Thermidor",
+                category: "lobster",
+                price: "Rp 1.250.000",
+                description: "Lobster utuh panggang dengan saus krim keju, mustard Dijon, dan taburan parmesan",
+                tags: ["Signature", "Chef's Choice"],
+                image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=300&h=300&fit=crop"
+            },
+            {
+                id: 2,
+                name: "Singapore Chili Crab",
+                category: "crab",
+                price: "Rp 850.000",
+                description: "Kepiting saus padang pedas manis khas Singapore dengan mantou goreng",
+                tags: ["Popular", "Spicy"],
+                image: "https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=300&h=300&fit=crop"
+            },
+            {
+                id: 3,
+                name: "Grilled King Salmon",
+                category: "fish",
+                price: "Rp 420.000",
+                description: "Salmon Norwegia panggang dengan lemon butter sauce dan asparagus",
+                tags: ["Healthy"],
+                image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=300&h=300&fit=crop"
+            },
+            {
+                id: 4,
+                name: "Fresh Oyster Platter",
+                category: "oyster",
+                price: "Rp 380.000",
+                description: "Tiram segar 6 pcs dengan mignonette sauce dan lemon",
+                tags: ["Fresh Daily"],
+                image: "https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?w=300&h=300&fit=crop"
+            },
+            {
+                id: 5,
+                name: "Black Pepper Lobster",
+                category: "lobster",
+                price: "Rp 1.180.000",
+                description: "Lobster tumis lada hitam dengan bawang putih dan cabai",
+                tags: ["Asian Fusion"],
+                image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=300&h=300&fit=crop"
+            },
+            {
+                id: 6,
+                name: "Soft Shell Crab",
+                category: "crab",
+                price: "Rp 320.000",
+                description: "Kepiting soka goreng tepung dengan saus tartar dan salad",
+                tags: ["Crispy"],
+                image: "https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=300&h=300&fit=crop"
+            }
+        ];
+
+        // Initialize
+        window.addEventListener('load', () => {
+            // Hide preloader
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+                initAnimations();
+            }, 2000);
+
+            // Render menu
+            renderMenu('all');
+        });
+
+        // GSAP Animations
+        function initAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero animations
+            gsap.to('.hero-subtitle', { opacity: 1, y: 0, duration: 1, delay: 0.5 });
+            gsap.to('.hero-title', { opacity: 1, y: 0, duration: 1, delay: 0.8 });
+            gsap.to('.hero-description', { opacity: 1, y: 0, duration: 1, delay: 1.1 });
+            gsap.to('.hero-buttons', { opacity: 1, y: 0, duration: 1, delay: 1.4 });
+            gsap.to('.hero-scroll', { opacity: 1, duration: 1, delay: 2 });
+
+            // Scroll animations
+            gsap.utils.toArray('.section-header').forEach(header => {
+                gsap.from(header, {
+                    scrollTrigger: {
+                        trigger: header,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 1
+                });
+            });
+
+            // About image parallax
+            gsap.to('.about-image', {
+                scrollTrigger: {
+                    trigger: '.about',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                },
+                y: 100
+            });
+        }
+
+        // Render Menu
+        function renderMenu(category) {
+            const grid = document.getElementById('menuGrid');
+            const filtered = category === 'all' ? menuData : menuData.filter(item => item.category === category);
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="menu-item" onclick="showDetail(${item.id})">
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">${item.name}</h4>
+                            <span class="menu-item-price">${item.price}</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <div class="menu-item-tags">
+                            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Animate items
+            gsap.from('.menu-item', {
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: grid,
+                    start: 'top 80%'
+                }
+            });
+        }
+
+        // Filter Menu
+        function filterMenu(category, btn) {
+            document.querySelectorAll('.menu-tab').forEach(tab => tab.classList.remove('active'));
+            btn.classList.add('active');
+            renderMenu(category);
+        }
+
+        // Testimonial Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Auto slide
+        setInterval(() => changeSlide(1), 6000);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        if (!isTouchDevice) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.querySelectorAll('a, button, .menu-item, .gallery-item').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        } else {
+            cursor.style.display = 'none';
+        }
+
+        // Form submission
+        function handleReservation(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const btn = e.target.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Reservasi Berhasil!';
+            btn.style.background = '#22c55e';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: { y: target, offsetY: 70 },
+                        ease: 'power2.inOut'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
